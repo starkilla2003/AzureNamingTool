@@ -104,10 +104,17 @@ jobs:
         with:
           name: .net-app
 
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_20260B32584F4BE884C1291E2F3C72FE }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E2DD3EE990214DEE88DF8A7CA20859BE }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AFC8D5ED0CAF4C3D8030C4EB010E4844 }}
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          app-name: 'fom-namingtool-webapp'
+          slot-name: 'Production'
+          package: .
