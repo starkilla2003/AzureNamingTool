@@ -92,6 +92,7 @@ jobs:
         working-directory: ready/AzNamingTool 
     permissions:
       contents: none
+      id-token: write #This is required for requesting the JWT
     runs-on: ubuntu-latest
     needs: [build,check-secrets]
     if: needs.check-secrets.outputs.secrets-valid == 'true'
